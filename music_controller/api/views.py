@@ -51,3 +51,10 @@ class GetRoom(APIView):
         
         return Response({'Bad Request':'Code parameter not found'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class JoinRoom(APIView):
+    lookup_url_kwarg = 'code'
+    def post(self, request, format = None):
+        if not self.request.session.exists():
+            self.request.session.create()
+        
