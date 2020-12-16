@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-
+const { SourceMapDevToolPlugin } = require("webpack");
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -11,6 +11,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        enforce: 'pre',
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -28,5 +29,8 @@ module.exports = {
         NODE_ENV: JSON.stringify("production"),
       },
     }),
+    new SourceMapDevToolPlugin({
+      filename: "[file].map"
+    })
   ],
 };
